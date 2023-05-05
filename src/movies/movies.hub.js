@@ -64,7 +64,11 @@ const getNotSeen = async (req,res) => {
 
 
 const getWishList = async (req,res) => {
-    
+    try {
+        res.status(200).send( await Services.getWishList())
+     } catch (error) {
+         res.status(404)
+     }
 }
 
 const addWishList = async (req,res) => {
@@ -80,7 +84,14 @@ const addWishList = async (req,res) => {
 }
 
 const deleteWishList = async (req,res) => {
+    try {
+        const {params} = req
     
+        res.status(200).send(await Services.deleteWishList(params.movieId))
+    
+    } catch (error) {
+        res.status(404)
+    }
 }
 
 
