@@ -72,6 +72,7 @@ const getMovie = async (movieId) => {
                 title: result.title,
                 id: result.id 
             }
+            
       } catch (error) {
           console.error(error);
       }

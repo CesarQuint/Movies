@@ -6,7 +6,7 @@ try {
     
     res.status(200).send(await Services.getMovies(query))
 } catch (error) {
-    res.status(404).error(new Error("No se encontro la lista de peliculas"))
+    res.status(404)
 }
 }
 
@@ -22,7 +22,13 @@ try {
 }
 
 const getSeen = async (req,res) => {
+    try {
     
+        res.status(200).send(await Services.getSeen())
+     
+    } catch (error) {
+        res.status(404)
+    }
 }
 
 
@@ -33,7 +39,7 @@ const addSeen = async (req,res) => {
         res.status(200).send(await Services.addSeen(params.movieId))
     
     } catch (error) {
-        res.status(404).error(new Error("Hubo un error al agregar la pelicula"))
+        res.status(404)
     }
     
 }
