@@ -5,7 +5,8 @@ var Wish = require ('../../wishList.json')
 
 const getMovies = async (query) => {
     try {
-
+        if(!query.page)
+            query.page = 1
         const movies = await Movies.getMovies(Number(query.page))
         return movies
 
