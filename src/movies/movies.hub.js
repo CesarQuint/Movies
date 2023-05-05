@@ -23,8 +23,7 @@ try {
 
 const getSeen = async (req,res) => {
     try {
-    
-        res.status(200).send(await Services.getSeen())
+       res.status(200).send( await Services.getSeen())
      
     } catch (error) {
         res.status(404)

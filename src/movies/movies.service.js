@@ -29,7 +29,8 @@ const getSeen = async () => {
 
     var data = fs.readFileSync('./seen.json');
     var json = JSON.parse(data);
-    console.log(json);
+    console.log(json.length);
+   
    } catch (error) {
     throw error
    }
@@ -41,10 +42,12 @@ const addSeen = async (movieId) => {
         const movie = await Movies.getMovie(movieId)
         console.log(movie)
 
-        console.log();
+        const newMovie = {
+            id : movie.id,
+            data: movie
+        }
 
-        
-        Obj[movie.id] = movie
+        Obj = [...Obj,newMovie]
         
         fs.writeFileSync('./seen.json', JSON.stringify(Obj), function (err) {
             console.log(err);
