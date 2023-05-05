@@ -1,6 +1,7 @@
 const fs = require('fs')
 const Movies = require('../db/movies')
-var Obj = require ('../../seen.json')
+var Seen = require ('../../seen.json')
+var Wish = require ('../../wishList.json')
 
 const getMovies = async (query) => {
     try {
@@ -29,7 +30,8 @@ const getSeen = async () => {
 
     var data = fs.readFileSync('./seen.json');
     var json = JSON.parse(data);
-    console.log(json.length);
+    
+    return json
    
    } catch (error) {
     throw error
@@ -40,16 +42,26 @@ const getSeen = async () => {
 const addSeen = async (movieId) => {
     try {
         const movie = await Movies.getMovie(movieId)
-        console.log(movie)
+        
+        if(!movie)
+            return 
 
         const newMovie = {
             id : movie.id,
             data: movie
         }
 
-        Obj = [...Obj,newMovie]
+        var seenList = fs.readFileSync('./seen.json');
+        var response = JSON.parse(seenList);
+
+        const found = response.filter(r => r.id == movie.id)
+
+        if(found.length >= 1)
+            return
+
+        Seen = [...Seen,newMovie]
         
-        fs.writeFileSync('./seen.json', JSON.stringify(Obj), function (err) {
+        fs.writeFileSync('./seen.json', JSON.stringify(Seen), function (err) {
             console.log(err);
           });
         
@@ -60,42 +72,98 @@ const addSeen = async (movieId) => {
     }
 }
 
-const deleteSeen = async (req,res) => {
+const deleteSeen = async (movieId) => {
+    try {
+        const movie = await Movies.getMovie(movieId)
+        
+        if(!movie)
+            return 
+
+        var seenList = fs.readFileSync('./seen.json');
+        var response = JSON.parse(seenList);
+
+        const newList = response.filter(r => r.id !== movie.id )
+
+        fs.writeFileSync('./seen.json', JSON.stringify(newList, null, 2));
     
+    } catch (error) {
+       throw error 
+    }
 }
 
-const getNotSeen = async (req,res) => {
-    
+const getNotSeen = async () => {
+    try {
+
+       
+       } catch (error) {
+        throw error
+       }
 }
 
 
 const getWishList = async (req,res) => {
-    
+    try {
+
+        var data = fs.readFileSync('./wishList.json');
+        var json = JSON.parse(data);
+        
+        return json
+       
+       } catch (error) {
+        throw error
+       }
 }
 
 const addWishList = async (movieId) => {
     try {
         const movie = await Movies.getMovie(movieId)
-        console.log(movie)
-
-        console.log();
-
         
-        Obj[movie.id] = movie
+        if(!movie)
+            return
+
+        const newMovie = {
+            id : movie.id,
+            data: movie
+        }
+
+        var wishList = fs.readFileSync('./wishList.json');
+        var response = JSON.parse(wishList);
+
+        const found = response.filter(r => r.id == movie.id)
+
+        if(found.length >= 1)
+            return
+
+        Wish = [...Wish,newMovie]
         
-        fs.writeFileSync('./seen.json', JSON.stringify(Obj), function (err) {
+        fs.writeFileSync('./wishList.json', JSON.stringify(Wish), function (err) {
             console.log(err);
           });
         
         return movie
-        
+
     } catch (error) {
         throw error
     }
 }
 
-const deleteWishList = async (req,res) => {
+const deleteWishList = async (movieId) => {
+    try {
+        const movie = await Movies.getMovie(movieId)
+        
+        if(!movie)
+            return 
+
+        var wishList = fs.readFileSync('./wishList.json');
+        var response = JSON.parse(wishList);
+
+        const newList = response.filter(r => r.id !== movie.id )
+
+        fs.writeFileSync('./wishList.json', JSON.stringify(newList, null, 2));
     
+    } catch (error) {
+       throw error 
+    }
 }
 
 

@@ -33,13 +33,17 @@ const options = {
         const response = await axios.request(options);
         let result = response.data.map(movie => {
             return {
-                rank: movie.rank,
-                title: movie.title,
-                id: movie.id
+                id: movie.id,
+                data:{
+                    rank: movie.rank,
+                    title: movie.title,
+                    id: movie.id
+                }
             }
         })
         jsonString = JSON.stringify(result)
         fs.writeFileSync("./movies.json",jsonString)
+        fs.writeFileSync("./notSeen.json",jsonString)
         const movies = result.slice(start,end)
         const pages = Math.ceil(response.data.length / 10)
        
