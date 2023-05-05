@@ -88,7 +88,7 @@ const deleteSeen = async (movieId) => {
 
         fs.writeFileSync('./seen.json', JSON.stringify(newList, null, 2));
 
-        return movie.id
+        return {id:movie.id}
     
     } catch (error) {
        throw error 
@@ -190,7 +190,7 @@ const deleteWishList = async (movieId) => {
 
         fs.writeFileSync('./wishList.json', JSON.stringify(newList, null, 2));
 
-        return movie.id
+        return {id:movie.id}
     
     } catch (error) {
        throw error 

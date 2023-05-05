@@ -1,1 +1,18 @@
-[{"id":"top3","data":{"rank":3,"title":"The Dark Knight","id":"top3"}},{"id":"top2","data":{"rank":2,"title":"The Godfather","id":"top2"}}]
+[
+  {
+    "id": "top3",
+    "data": {
+      "rank": 3,
+      "title": "The Dark Knight",
+      "id": "top3"
+    }
+  },
+  {
+    "id": "top2",
+    "data": {
+      "rank": 2,
+      "title": "The Godfather",
+      "id": "top2"
+    }
+  }
+]

@@ -4,20 +4,6 @@ const Config =require('../../config')
 
 async function getMovies (query) {
 
-    let start
-    let end
-
-    if(query == 1){
-        start = 0
-        end = 10
-    }
-
-    if(query > 1){
-        start = query + 8
-        end = start + 10
-    }
-    console.log(start,end);
-    
 const options = {
     method: 'GET',
     url: `https://${Config.apiHost}/`,
@@ -31,6 +17,7 @@ const options = {
   try {
 
         const response = await axios.request(options);
+
         let result = response.data.map(movie => {
             return {
                 id: movie.id,
@@ -41,15 +28,19 @@ const options = {
                 }
             }
         })
+
         jsonString = JSON.stringify(result)
         fs.writeFileSync("./movies.json",jsonString)
         fs.writeFileSync("./notSeen.json",jsonString)
-        const movies = result.slice(start,end)
+        
         const pages = Math.ceil(response.data.length / 10)
        
+        let pagination = chunkArray(result, 10);
+        
+        
         return {
             pages ,
-            movies
+            movies: pagination[query-1]
         }
 
   } catch (error) {
@@ -82,6 +73,22 @@ const getMovie = async (movieId) => {
       }
     }
     
+
+    
+    function chunkArray(myArray, chunk_size){
+        var index = 0;
+        var arrayLength = myArray.length;
+        var tempArray = [];
+        
+        for (index = 0; index < arrayLength; index += chunk_size) {
+            myChunk = myArray.slice(index, index + chunk_size);
+          
+            tempArray.push(myChunk);
+        }
+    
+        return tempArray;
+    }
+
 
 module.exports = {
     getMovies,

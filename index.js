@@ -4,7 +4,7 @@ const Router = require('./src/router')
 const Config = require('./config')
 
 const app = Express(); 
-const PORT = Config.port || 3000;
+const PORT = Config.port || 5000;
 
 app.use(Express.json())
 
