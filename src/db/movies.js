@@ -1,3 +1,4 @@
+const fs = require("fs")
 const axios = require('axios');
 const Config =require('../../config')
 
@@ -30,7 +31,15 @@ const options = {
   try {
 
         const response = await axios.request(options);
-        const result = await response.data
+        let result = response.data.map(movie => {
+            return {
+                rank: movie.rank,
+                title: movie.title,
+                id: movie.id
+            }
+        })
+        jsonString = JSON.stringify(result)
+        fs.writeFileSync("./movies.json",jsonString)
         const movies = result.slice(start,end)
         const pages = Math.ceil(response.data.length / 10)
        
@@ -56,8 +65,13 @@ const getMovie = async (movieId) => {
       };
       
       try {
-            const response = await axios.request(options);
-           return response.data
+            const response = await axios.request(options)
+            const result = response.data
+            return {
+                rank: result.rank,
+                title: result.title,
+                id: result.id 
+            }
       } catch (error) {
           console.error(error);
       }

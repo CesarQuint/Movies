@@ -22,7 +22,51 @@ const getMovie = async (movieId) => {
 }
 
 
+const getSeen = async (req,res) => {
+    
+}
+
+
+const addSeen = async (req,res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+const deleteSeen = async (req,res) => {
+    
+}
+
+const getNotSeen = async (req,res) => {
+    
+}
+
+
+const getWishList = async (req,res) => {
+    
+}
+
+const addWishList = async (req,res) => {
+    
+}
+
+const deleteWishList = async (req,res) => {
+    
+}
+
+
+
+
 module.exports= {
     getMovies,
-    getMovie
+    getMovie,
+    getSeen,
+    addSeen,
+    deleteSeen,
+    getNotSeen,
+    getWishList,
+    addWishList,
+    deleteWishList
 }
